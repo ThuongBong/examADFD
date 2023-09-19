@@ -43,31 +43,24 @@ class _MainPageState extends State<MainPage> {
             items: [
               SalomonBottomBarItem(
                 icon: const Icon(
-                  FontAwesomeIcons.house,
+                  FontAwesomeIcons.hotel,
                   size: kDefaultIconSize,
                 ),
-                title: const Text("HOME")
-              ), //SalomonBottomBarItem
-              SalomonBottomBarItem(
-                icon: const Icon(
-                  FontAwesomeIcons.search,
-                  size: kDefaultIconSize,
-                ),
-                title: const Text("Search")
+                title: const Text("Hotels")
               ),
               SalomonBottomBarItem(
                   icon: const Icon(
-                    FontAwesomeIcons.briefcase,
+                    FontAwesomeIcons.plane,
                     size: kDefaultIconSize,
                   ),
-                  title: const Text("BOOKING")
+                  title: const Text("Flights")
               ),
               SalomonBottomBarItem(
                   icon: const Icon(
-                    FontAwesomeIcons.solidUser,
+                    FontAwesomeIcons.city,
                     size: kDefaultIconSize,
                   ),
-                  title: const Text("PROFILE")
+                  title: const Text("All")
               ),
             ],
           ),
