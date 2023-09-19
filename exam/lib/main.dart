@@ -1,6 +1,6 @@
 import 'package:exam/service/cubit/app_cubit.dart';
 import 'package:exam/service/cubit/app_cubit_logic.dart';
-import 'package:exam/service/cubit/authentication_serivice.dart';
+import 'package:exam/service/authentication_serivice.dart';
 import 'package:exam/service/data_service.dart';
 import 'package:exam/widgets/route.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => AppCubits(dataServices: DataServices(), authService: AuthenticationService()),
       child:  MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Flutter Exam',
         debugShowCheckedModeBanner: false,
         routes: routes,
         home: Builder(

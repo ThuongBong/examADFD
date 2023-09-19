@@ -1,37 +1,37 @@
+import 'dart:async';
 import 'dart:convert';
-
-import 'package:exam/model/diestination_model.dart';
-import 'package:exam/model/welcome_model.dart';
 import 'package:http/http.dart' as http;
 
 class DataServices {
-  String baseUrl = "http://10.0.2.2:8080/api/v1/destination";
+  String baseUrl = "http://10.0.2.2:8080";
+  Future<List<Map<String, String>>> getInfoDestination() async {
+    String subUrl = "/destination";
+    http.Response response = await http.get(Uri.parse(baseUrl + subUrl));
+    Completer<List<Map<String, String>>> completer = Completer();
 
-  Future<List<WelcomeModel>> welcome() async {
-    String subUrl = "/welcome";
-    http.Response response = await http.get(Uri.parse(baseUrl+subUrl));
     try {
-      if(response.statusCode == 200) {
+      if (response.statusCode == 200) {
         List<dynamic> list = json.decode(response.body);
-        return list.map((e) => WelcomeModel.fromJson(e)).toList();
-      }
-    }catch(e) {
-      print(e);
-    }
-    return <WelcomeModel>[];
-  }
+        List<Map<String, String>> resultMapList = [];
 
-  Future<List<DestinationModel>> getInfoDestination() async {
-    String subUrl = "/getAll";
-    http.Response response = await http.get(Uri.parse(baseUrl+subUrl));
-    try {
-      if(response.statusCode == 200) {
-        List<dynamic> list = json.decode(response.body);
-        return list.map((e) => DestinationModel.fromJson(e)).toList();
+        for (var jsonItem in list) {
+          Map<String, String> resultMap = {};
+
+          jsonItem.forEach((key, value) {
+            resultMap[key] = value.toString();
+          });
+
+          resultMapList.add(resultMap);
+        }
+
+        completer.complete(resultMapList);
+      } else {
+        completer.completeError("Request failed with status: ${response.statusCode}");
       }
-    }catch(e) {
-      print(e);
+    } catch (e) {
+      completer.completeError(e.toString());
     }
-    return <DestinationModel>[];
+
+    return completer.future;
   }
 }

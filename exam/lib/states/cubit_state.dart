@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import '../model/welcome_model.dart';
+import '../model/diestination_model.dart';
 
 abstract class CubitStates extends Equatable {}
 
@@ -9,9 +8,11 @@ class LoadingState extends CubitStates {
   List<Object> get props => [];
 }
 
-class WelcomeLoadedState extends CubitStates {
-  WelcomeLoadedState({required this.welcomes});
-  final List<WelcomeModel> welcomes;
+class HomeLoadedState  extends CubitStates {
+  HomeLoadedState({required this.destinations, this.textSearch = ""});
+  final List<DestinationModel> destinations;
+  final String? textSearch;
   @override
-  List<Object> get props => [welcomes];
+  // TODO: implement props
+  List<Object> get props => [destinations];
 }

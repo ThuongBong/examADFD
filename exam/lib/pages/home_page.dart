@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../core/constant/dimension_constant.dart';
+import '../core/extention/text_style.dart';
+import '../core/helper/imageHelper.dart';
+import '../service/data_service.dart';
+import '../widgets/app_bar_container.dart';
+import '../widgets/item_widget.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -10,88 +18,207 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  List<Map<String,String>> listImageLeft =[];
+  @override
+  void initState() {
+    super.initState();
+    getData();
   }
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
+  Future<void> getData() async {
+    try {
+      List<Map<String, String>> result = await DataServices().getInfoDestination();
+      setState(() {
+        listImageLeft = result;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Widget _buildImageHomScreen(String name, String image) {
+    return GestureDetector(
+      onTap: () {
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage()));
+      },
+      child: Container(
+        child: Stack(
+          alignment: Alignment.topRight,
+          children: [
+            ImageHelper.LoadFromAsset(
+              image,
+              width: double.maxFinite,
+              height: 200,
+              fit: BoxFit.cover,
+              radius: BorderRadius.circular(kItemPadding),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(kDefaultPadding),
+              child: Icon(
+                Icons.favorite,
+                color: Colors.red,
+              ),
+            ),
+            Positioned(
+              left: kDefaultPadding,
+              bottom: kDefaultPadding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(kMinPadding),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(kMinPadding),
+                      color: Colors.white.withOpacity(0.4),
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color: Color(0xffFFC107),
+                        ),
+                        SizedBox(
+                          width: kItemPadding,
+                        ),
+                        Text('4.5'),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: kItemPadding,
+                  ),
+                  Text(
+                    name,
+                    style: TextStyles.defaultStyle
+                        .blackTextColor
+                        .bold,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
       child: SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            title: Text(widget.title),
-          ),
-          body: Column(
-            children: [
-              Container(
-                width: double.maxFinite,
-                height: 200,
-                color: Colors.grey,
-                child: const Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Hello T2108E",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        color: Colors.red
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              const Center(
-                child: Text(
-                  "Hello T2108E FPT",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Colors.red
-                  ),
-                ),
-              ),
-              Padding(
-                  padding: EdgeInsets.only(left: 10, right: 30,bottom: 20),
-                child: Container(
-                  color: Colors.red.withOpacity(0.5),
-                  height: 100,
-                ),
-              ),
-              Expanded(
-                  child: Row(
+          body: AppBarContainer(
+            titleString: 'home',
+            title: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: kItemPadding),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        width: 100,
-                        height: double.maxFinite,
-                        color: Colors.pink,
+                      Text('Hi Guy! ',
+                        style: TextStyles.defaultStyle.fontHeader.whiteTextColor.bold,
                       ),
-                      Spacer(),
-                      Container(
-                        width: 100,
-                        height: double.maxFinite,
-                        color: Colors.blue,
+                      const SizedBox(
+                        height: kMediumPadding,
+                      ),
+                      Text(
+                        'Where are you going next?',
+                        style: TextStyles.defaultStyle.fontCaption.whiteTextColor,
                       )
-
                     ],
                   )
+                ],
               ),
-            ],
-          )
-           // This trailing comma makes auto-formatting nicer for build methods.
+            ),
+            implementLeading: false,
+            child: Column(
+              children: [
+                TextField(
+                  enabled: true,
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                    hintText: 'Search your destination',
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        FontAwesomeIcons.magnifyingGlass,
+                        color: Colors.black,
+                        size: 14,
+                      ),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          kItemPadding,
+                        ),
+                      ),
+                    ),
+                    contentPadding: EdgeInsets.symmetric(horizontal: kItemPadding),
+                  ),
+                  style: TextStyles.defaultStyle,
+                  onChanged: (value) {},
+                  onSubmitted: (String submitValue) {},
+                ),
+                const SizedBox(
+                  height: kDefaultPadding,
+                ),
+                const SizedBox(
+                  height: kMediumPadding,
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ItemWidget( imagePath: 'assets/images/ico_hotel.png', backgroundColor: Color(0xFFE0A587),),
+                      ItemWidget( imagePath: 'assets/images/ico_hotel_plane.png', backgroundColor: Color(0xFFA95E5E),),
+                      ItemWidget( imagePath: 'assets/images/ico_plane.png', backgroundColor: Color(0xFF8FD9CF),),
+                    ],
+                  ),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Popular Destinations',
+                      style: TextStyles.defaultStyle.bold,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: kMediumPadding,
+                ),
+                Expanded(
+                    child: CustomScrollView(
+                      primary: false,
+                      slivers: <Widget>[
+                        SliverPadding(
+                          padding: const EdgeInsets.all(0),
+                          sliver: SliverGrid.count(
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                            crossAxisCount: 2,
+                            children: listImageLeft
+                                .map(
+                                  (e) => _buildImageHomScreen(
+                                e['name']!,
+                                e['image']!,
+                              ),
+                            ).toList(),
+                          ),
+                        ),
+                      ],
+                    )
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -1,6 +1,5 @@
-import 'package:exam/service/cubit/authentication_serivice.dart';
+import 'package:exam/service/authentication_serivice.dart';
 import 'package:exam/service/data_service.dart';
-import 'package:exam/states/app_cubit_state.dart';
 import 'package:exam/states/cubit_state.dart';
 import 'package:exam/states/initial_state.dart';
 import 'package:bloc/bloc.dart';
@@ -9,7 +8,7 @@ import 'package:exam/model/place_model.dart';
 
 class AppCubits extends Cubit<CubitStates> {
   AppCubits({required this.dataServices, required this.authService}) : super(InitialState()){
-    loadWelcomePage();
+    getAllDestination();
   }
   final DataServices dataServices;
   final AuthenticationService authService;
@@ -19,14 +18,6 @@ class AppCubits extends Cubit<CubitStates> {
   late List<PlaceModel> favoritePlaces = [];
   var welcome;
   var userModel;
-
-  void loadWelcomePage() async {
-    try {
-      emit(WelcomeLoadedState(welcomes: welcome));
-    }catch(e) {
-      print(e);
-    }
-  }
 
   void getAllDestination() async {
     try {
