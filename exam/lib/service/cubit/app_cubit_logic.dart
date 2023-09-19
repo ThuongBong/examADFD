@@ -18,20 +18,7 @@ class _AppCubitLogicsState extends State<AppCubitLogics> {
     return Scaffold(
       body: BlocBuilder<AppCubits, CubitStates>(
           builder: (context, state) {
-            /*if (state is HomeLoadedState) {
-                return HomePageNew();
-              }
-              if (state is LoadingState) {
-                return Center(
-                  child: Container(color: Colors.white,
-                    child: const CircularProgressIndicator(),),
-                );
-              }*/
-            /*return Container(
-                color: Colors.white,
-                child: Text("no_state"),
-              );*/
-            return MyHomePage(title: 'Exam');
+            return MyHomePage(title: 'ExamADFD',);
           }),
     );
   }
