@@ -42,25 +42,32 @@ class _MainPageState extends State<MainPage> {
             margin: const EdgeInsets.symmetric(vertical: kDefaultPadding, horizontal: kMinPadding),
             items: [
               SalomonBottomBarItem(
+                  icon: const Icon(
+                    FontAwesomeIcons.house,
+                    size: kDefaultIconSize,
+                  ),
+                  title: const Text("Home")
+              ),
+              SalomonBottomBarItem(
                 icon: const Icon(
-                  FontAwesomeIcons.hotel,
+                  FontAwesomeIcons.search,
                   size: kDefaultIconSize,
                 ),
-                title: const Text("Hotels")
+                title: const Text("Search")
               ),
               SalomonBottomBarItem(
                   icon: const Icon(
-                    FontAwesomeIcons.plane,
+                    FontAwesomeIcons.briefcase,
                     size: kDefaultIconSize,
                   ),
-                  title: const Text("Flights")
+                  title: const Text("Booking")
               ),
               SalomonBottomBarItem(
                   icon: const Icon(
-                    FontAwesomeIcons.city,
+                    FontAwesomeIcons.solidUser,
                     size: kDefaultIconSize,
                   ),
-                  title: const Text("All")
+                  title: const Text("Profile")
               ),
             ],
           ),

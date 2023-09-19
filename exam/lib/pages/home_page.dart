@@ -177,9 +177,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ItemWidget( imagePath: 'assets/images/ico_hotel.png', backgroundColor: Color(0xFFE0A587),),
-                      ItemWidget( imagePath: 'assets/images/ico_hotel_plane.png', backgroundColor: Color(0xFFA95E5E),),
-                      ItemWidget( imagePath: 'assets/images/ico_plane.png', backgroundColor: Color(0xFF8FD9CF),),
+                      ItemWidget( imagePath: 'assets/image/ico_hotel.png', backgroundColor: Color(0xFFE0A587),),
+                      ItemWidget( imagePath: 'assets/image/ico_hotel_plane.png', backgroundColor: Color(0xFFA95E5E),),
+                      ItemWidget( imagePath: 'assets/image/ico_plane.png', backgroundColor: Color(0xFF8FD9CF),),
                     ],
                   ),
                 ),
